@@ -11,7 +11,7 @@
 
     <title>
         
-        About - Jiajun Lin的博客 | Jiajun Lin&#39;s Blog
+        理解instanceof的背后原理 - Jiajun Lin的博客 | Jiajun Lin&#39;s Blog
         
     </title>
 
@@ -71,7 +71,7 @@
                     <span>存档</span>
                 </a>
             </li>
-            <li  class=active >
+            <li >
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -87,6 +87,10 @@
             
         </ul>
     </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
     
 </div>
 
@@ -112,17 +116,36 @@
     <div class="index-middle">
         <!-- Main Content -->
         
-<div class="post-content no-indent">
-    <blockquote>
-<p>大多数时候，都在思考自己该走向何方</p>
-</blockquote>
-<p>Mail: <a href="mailto:ljjzde@gmail.com" target="_blank" rel="noopener">ljjzde@gmail.com</a></p>
-<p>等啊等，跑啊跑，嘻嘻</p>
 
-    
-    <div id="comment-container">
+
+<div class="post-container">
+    <div class="post-title">
+        理解instanceof的背后原理
     </div>
-    <div id="lv-container">
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-10-13 17:07:25</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p><strong>概念：</strong><br>instanceof的作用： 因为利用typeof判断，我们所得到的许多结果都是object，这个时候我们就可以用instanceof来判断<br>instanceof的MDN定义： 判断构建函数的prototype是否在对象的原型链上</p>
+<p>所以instanceof 的背后原理其实是是原型链，就是要判断b.prototype是否在a.<strong>proto</strong>上。<br>首先，要使用instanceof，我们需要一个对象和一个函数，例如 a instanceof b，a必须为对象，b为函数。<br>我们可以先用instanceof判断基本的js类型：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span> <span class="keyword">instanceof</span> <span class="built_in">String</span> <span class="comment">//false</span></span><br><span class="line"><span class="built_in">String</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true   </span></span><br><span class="line"><span class="built_in">Function</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Object</span> <span class="keyword">instanceof</span> <span class="built_in">Object</span> <span class="comment">//true obj.__proto__ = Object.prototype</span></span><br></pre></td></tr></table></figure>
+<p>实现一个instanceof<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">instance_of</span>(<span class="params">left,right</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">const</span> RP = right.prototype;</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>(left === <span class="literal">null</span>)&#123;</span><br><span class="line">		 	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(left === RP)&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			left = left.__proto__;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
     </div>
 </div>
 
@@ -220,7 +243,7 @@
     // We expose some of the variables needed by the front end
     window.hexo_search_path = "search.json"
     window.hexo_root = "/"
-    window.isPost = false
+    window.isPost = true
 </script>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
