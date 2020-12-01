@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="林嘉俊的博客">
+    <meta name="keyword"  content="林嘉俊">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        react学习之组件与state - Jiajun Lin的博客 | Jiajun Lin&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 等啊等，学啊学 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Jiajun Lin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-对React组件的理解"><span class="toc-text">1.  对React组件的理解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-创建组件的方式"><span class="toc-text">2. 创建组件的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-函数组件，使用function的组件"><span class="toc-text">2.1 函数组件，使用function的组件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-class组件（es6）"><span class="toc-text">2.2 class组件（es6）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-state-与-props"><span class="toc-text">3. state 与 props</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-props的特性"><span class="toc-text">3.1 props的特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-props只读的原因"><span class="toc-text">3.2 props只读的原因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-state"><span class="toc-text">3.3 state</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-关于setState"><span class="toc-text">3.3.1 关于setState</span></a></li></ol></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 等啊等，学啊学 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        react学习之组件与state
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-12-01 17:03:57</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h2 id="1-对React组件的理解"><a href="#1-对React组件的理解" class="headerlink" title="1.  对React组件的理解"></a>1.  对React组件的理解</h2><p>组件是一个具备UI 描述和UI 数据的完整体。<br>它的数据结构是类或函数，返回 React 元素。 简单来说，可以把组件看成是一个函数，输入的是 props 和 state，输出的是组件的 UI（UI 描述）</p>
+<h2 id="2-创建组件的方式"><a href="#2-创建组件的方式" class="headerlink" title="2. 创建组件的方式"></a>2. 创建组件的方式</h2><h4 id="2-1-函数组件，使用function的组件"><a href="#2-1-函数组件，使用function的组件" class="headerlink" title="2.1 函数组件，使用function的组件"></a>2.1 函数组件，使用function的组件</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Test = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		&lt;p&gt;test&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">	)</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>一般是无状态的,在出了react hook之后，函数组件也可以拥有自己的状态</p>
+<h4 id="2-2-class组件（es6）"><a href="#2-2-class组件（es6）" class="headerlink" title="2.2 class组件（es6）"></a>2.2 class组件（es6）</h4><p>可以通过es6 class的方法来实现组件，组件继承react.component，必须拥有render方法，class组件属于有状态的组件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React extends <span class="string">"react"</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;我是一个react组件&lt;div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-state-与-props"><a href="#3-state-与-props" class="headerlink" title="3. state 与 props"></a>3. state 与 props</h2><h4 id="3-1-props的特性"><a href="#3-1-props的特性" class="headerlink" title="3.1 props的特性"></a>3.1 props的特性</h4><p>props是一个结构简单的对象，props在组件做为JSX属性使用时，是一个可以接收外部数据的接口。</p>
+<ol>
+<li>可以传递数值与函数</li>
+<li>从父组件中传入</li>
+<li>只读</li>
+</ol>
+<h4 id="3-2-props只读的原因"><a href="#3-2-props只读的原因" class="headerlink" title="3.2 props只读的原因"></a>3.2 props只读的原因</h4><p>React 组件间的通信是遵循单向数据流的思想，实现是通过 props。具体表现为数据主要从父组件传递给子组件。如果父组件的传递给子组件的某个 props 改变了，子组件将会重新渲染。<br>在子组件中可以通过 this.props 访问到父组件中传进来的数据。根据约定，子组件中不能直接使用 this.props 修改 props。一般来说，我们可以在父组件中定义一个方法用于修改某个状态，然后把该函数通过 props 传入子组件，这样子组件就可以通过调用该函数修改 props</p>
+<h4 id="3-3-state"><a href="#3-3-state" class="headerlink" title="3.3 state"></a>3.3 state</h4><p>state是组件的内部状态，代表的是组件 UI 呈现的完整状态集。state 中所有的状态都应反映组件 UI 的变化。</p>
+<p>state 的两种使用场景：</p>
+<ol>
+<li>用于渲染组件时用到的数据的来源</li>
+<li>用作组件展示形式的判断依据</li>
+</ol>
+<h4 id="3-3-1-关于setState"><a href="#3-3-1-关于setState" class="headerlink" title="3.3.1 关于setState"></a>3.3.1 关于setState</h4><p>setState有两种传参方式</p>
+<ol>
+<li>传入一个对象与回调函数</li>
+<li>传入一个函数与回调函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.setState(&#123;<span class="attr">count</span>:<span class="number">1</span>&#125;);</span><br><span class="line">----------------------------------</span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</span><br><span class="line">  counter: prevState.counter + props.increment</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+<p>setState可以传入两个参数，第一个参数为要修改的对象，传入函数时返回时必须要返回修改完后的对象状态。第二个参数为修改后要调用的回调函数，由于react的机制，setstate不一定是同步的，可能是异步的，这里的异步是说react可能把多个更新state的动作合并成一次进行执行，所以造成异步的现象。如果我们要在setState之后获取state，可能会得不到想要的结果，所以这时候的操作可以在setState的第二个参数（回调函数，等价于componentDidUpdate）里执行。</p>
+<p> setState 通过使用Object.assign()方法来合并state，它像是一个异步方法，而实际上 setState 方法并没有直接修改 state，它只是把要修改的状态放入一个队列中，最后由 React 统一把这些修改与当前 state 合并。setState 的更新过程实际上是把当前修改的状态跟当前 state 合并的过程。所以说 setState 是一个异步方法并不准确，只是 state 更新使用的这种批处理机制从而给人一种 setState 方法是一个异步方法的假象。</p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/#">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/#">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/DengADeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://thelinblog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
