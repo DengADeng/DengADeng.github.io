@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="林嘉俊的博客">
+    <meta name="keyword"  content="林嘉俊">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        leetcode滑动窗口问题详解 - Jiajun Lin的博客 | Jiajun Lin&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 等啊等，学啊学 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Jiajun Lin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-滑动窗口框架"><span class="toc-text">1. 滑动窗口框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-leetcode-题目"><span class="toc-text">2. leetcode 题目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-76-Minimum-Window-Substring"><span class="toc-text">2.1 76. Minimum Window Substring</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-Longest-Substring-Without-Repeating-Characters"><span class="toc-text">2.2  Longest Substring Without Repeating Characters</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-Find-All-Anagrams-in-a-String"><span class="toc-text">2.3 Find All Anagrams in a String</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-567-Permutation-in-String"><span class="toc-text">3.4 567. Permutation in String</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 等啊等，学啊学 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        leetcode滑动窗口问题详解
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-12-03 19:00:45</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="1-滑动窗口框架"><a href="#1-滑动窗口框架" class="headerlink" title="1. 滑动窗口框架"></a>1. 滑动窗口框架</h3><p>滑动窗口其实是双指针组成的一个检索窗口，思路为右指针不断扩大窗口，直到窗口满足特定的条件，然后增大左指针缩小窗口来锁定最优解。</p>
+<p>通用框架为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">slidingWindow</span>(<span class="params">s,target</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">let</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">while</span>(right&lt;s.length)&#123;</span><br><span class="line">      <span class="built_in">window</span>.add(s[right]) <span class="comment">// 增加右指针，增大窗口</span></span><br><span class="line">	  right++;</span><br><span class="line">	  </span><br><span class="line">	  <span class="keyword">if</span>(vallid)&#123;    <span class="comment">//满足条件</span></span><br><span class="line">	     <span class="built_in">window</span>.remove(s[left])   <span class="comment">//增加左指针，减小窗口</span></span><br><span class="line">		 left++;                <span class="comment">// 在这过程中锁定res</span></span><br><span class="line">	  &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-leetcode-题目"><a href="#2-leetcode-题目" class="headerlink" title="2. leetcode 题目"></a>2. leetcode 题目</h3><h4 id="2-1-76-Minimum-Window-Substring"><a href="#2-1-76-Minimum-Window-Substring" class="headerlink" title="2.1 76. Minimum Window Substring"></a>2.1 76. Minimum Window Substring</h4><p>在一个字符串中找出拥有所有目标字符串字母的最短字符串，简而言之，找出一个最短的字符串包含所有t字符串的字母。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: s = <span class="string">"ADOBECODEBANC"</span>, t = <span class="string">"ABC"</span></span><br><span class="line">Output: <span class="string">"BANC"</span></span><br><span class="line"></span><br><span class="line">Input: s = <span class="string">"a"</span>, t = <span class="string">"a"</span></span><br><span class="line">Output: <span class="string">"a"</span></span><br></pre></td></tr></table></figure></p>
+<p>思路是：</p>
+<ol>
+<li>我们先设立一个map，把target字符串出现的字符和字符次数依次记录，设count=0,count表示target.size()。</li>
+<li>设立window窗口为另一个map，把target中的字符串输入，次数为0，目的是判断当前窗口是否包含了所有的字符串，当所有的次数为1时，我们知道，窗口满足条件。</li>
+<li>left=right=0, 先增大right,扩大窗口window，使得窗口中包含所有t的字符，我们可以通过map.has(s[right])来判断当前字符是否在t里，然后我们可以判断map(s[right]) == window[s[right])， 如果成立，count++. </li>
+<li>当count==target.size()时，我们知道，所有的子串都包含在当前窗口了，我们需要缩小窗口，所以我们需要增大左指针，缩小窗口，找到满足条件的最优解。</li>
+</ol>
+<p>代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> minWindow = <span class="function"><span class="keyword">function</span>(<span class="params">s, t</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">window</span> = &#123;&#125;;  <span class="comment">//设两个map，一个为窗口，一个为target</span></span><br><span class="line">    <span class="keyword">let</span> needs = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> t)&#123;</span><br><span class="line">        <span class="keyword">if</span>(needs[i])&#123;    <span class="comment">// needs里记录t中的字符串</span></span><br><span class="line">            needs[i] +=<span class="number">1</span></span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            needs[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">window</span>[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> match = <span class="number">0</span> <span class="comment">// 记录匹配的次数，当match==need.size()时，说明当前窗口满足拥有所有t中的字符串</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> left = right = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> res = <span class="literal">Infinity</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> start = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(right &lt; s.length)&#123;</span><br><span class="line">        <span class="keyword">let</span> rightStr = s[right];</span><br><span class="line">        <span class="keyword">if</span>(needs[rightStr] &gt;= <span class="number">1</span>)&#123;    <span class="comment">//判断当前字符串是否为目标字符串中的字符</span></span><br><span class="line">            <span class="comment">//console.log(rightStr);</span></span><br><span class="line">            <span class="built_in">window</span>[rightStr] += <span class="number">1</span>;    <span class="comment">//是的话，窗口记录</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">window</span>[rightStr] == needs[rightStr])&#123;  <span class="comment">//当窗口记录的次数与needs的次数相同，match++，因为考虑有重复的字符，所以要保证次数相同</span></span><br><span class="line">                match += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="built_in">window</span>,needs,match)</span><br><span class="line">        &#125;</span><br><span class="line">        right++;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(match == <span class="built_in">Object</span>.keys(needs).length)&#123; <span class="comment">//满足条件</span></span><br><span class="line">            <span class="keyword">if</span>(right - left &lt; res)&#123;     <span class="comment">// 找到res,比较当前字符串长度是否最小，最小为答案</span></span><br><span class="line">                start = left;</span><br><span class="line">                res = right-left;</span><br><span class="line">            &#125;    </span><br><span class="line">            <span class="keyword">let</span> leftStr = s[left];</span><br><span class="line">            <span class="keyword">if</span>(needs[leftStr])&#123;    </span><br><span class="line">                <span class="built_in">window</span>[leftStr] -= <span class="number">1</span>;  <span class="comment">//缩小窗口</span></span><br><span class="line">                <span class="keyword">if</span>(needs[leftStr] &gt; <span class="built_in">window</span>[leftStr])&#123;</span><br><span class="line">                    match -=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            left ++;   </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res==<span class="literal">Infinity</span>? <span class="string">""</span>:s.substr(start,res);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-Longest-Substring-Without-Repeating-Characters"><a href="#2-2-Longest-Substring-Without-Repeating-Characters" class="headerlink" title="2.2  Longest Substring Without Repeating Characters"></a>2.2  Longest Substring Without Repeating Characters</h4><p>给定字符串s，找到最长子字符串的长度而不重复字符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: s = <span class="string">"abcabcbb"</span></span><br><span class="line">Output: <span class="number">3</span></span><br><span class="line">Explanation: The answer is <span class="string">"abc"</span>, <span class="keyword">with</span> the length <span class="keyword">of</span> <span class="number">3.</span></span><br><span class="line"></span><br><span class="line">Input: s = <span class="string">"bbbbb"</span></span><br><span class="line">Output: <span class="number">1</span></span><br><span class="line">Explanation: The answer is <span class="string">"b"</span>, <span class="keyword">with</span> the length <span class="keyword">of</span> <span class="number">1.</span></span><br></pre></td></tr></table></figure>
+<p>代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lengthOfLongestSubstring = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> str = <span class="string">''</span>;   <span class="comment">// 记录当前窗口的str</span></span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">let</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;s.length; i++)&#123;</span><br><span class="line">        <span class="keyword">let</span> temp = s[i];   <span class="comment">//遍历</span></span><br><span class="line">        </span><br><span class="line">        index = str.indexOf(temp);  <span class="comment">// 当前窗口的str中是否包含重复</span></span><br><span class="line">        <span class="keyword">if</span>(index &gt; <span class="number">-1</span>)&#123;                     <span class="comment">// 重复， 删去重复的部分，从重复的下一个坐标开始</span></span><br><span class="line">            str = str.substring(index+<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        str += s[i];                         <span class="comment">// 不重复，不断扩大</span></span><br><span class="line">        res = <span class="built_in">Math</span>.max(res, str.length);   <span class="comment">// 过程中，判断最长的长度</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>套用框架的写法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lengthOfLongestSubstring = <span class="function"><span class="keyword">function</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> left = right = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">window</span> = &#123;&#125;;</span><br><span class="line">    <span class="keyword">while</span>(right&lt;s.length)&#123;</span><br><span class="line">        <span class="keyword">let</span> temp = s[right];</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">window</span>[temp])&#123;    <span class="comment">//记录次数</span></span><br><span class="line">            <span class="built_in">window</span>[temp] += <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">window</span>[temp] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        right++;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(<span class="built_in">window</span>[temp] &gt; <span class="number">1</span>)&#123; <span class="comment">//当窗口中的某些字符的次数超过1</span></span><br><span class="line">            <span class="keyword">let</span> temp1 = s[left];           <span class="comment">// 缩小窗口</span></span><br><span class="line">            <span class="built_in">window</span>[temp1] -= <span class="number">1</span>;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        res = <span class="built_in">Math</span>.max(res, right-left);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="2-3-Find-All-Anagrams-in-a-String"><a href="#2-3-Find-All-Anagrams-in-a-String" class="headerlink" title="2.3 Find All Anagrams in a String"></a>2.3 Find All Anagrams in a String</h4><p>给定字符串s和非空字符串p，在s中找到p的字谜的所有起始索引。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">s: <span class="string">"cbaebabacd"</span> p: <span class="string">"abc"</span></span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">[<span class="number">0</span>, <span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">Explanation:</span><br><span class="line">The substring <span class="keyword">with</span> start index = <span class="number">0</span> is <span class="string">"cba"</span>, which is an anagram <span class="keyword">of</span> <span class="string">"abc"</span>.</span><br><span class="line">The substring <span class="keyword">with</span> start index = <span class="number">6</span> is <span class="string">"bac"</span>, which is an anagram <span class="keyword">of</span> <span class="string">"abc"</span></span><br></pre></td></tr></table></figure>
+<p>代码：<br>套用框架，思路相同，扩大窗口，使得窗口中含有所有p，然后使match == p.length，就知道当前窗口包含所有p,缩小窗口，如果right-left= p.length，说明找到了包含所有p的起始位置<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findAnagrams = <span class="function"><span class="keyword">function</span>(<span class="params">s, p</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> left = right = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">window</span> = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> needs = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> match = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> p)&#123;</span><br><span class="line">        <span class="keyword">if</span>(needs[i])&#123;</span><br><span class="line">            needs[i] += <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            needs[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">window</span>[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(right&lt;s.length)&#123;</span><br><span class="line">        <span class="keyword">let</span> ltemp = s[right];</span><br><span class="line">        <span class="keyword">if</span>(needs[ltemp] &gt;= <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="built_in">window</span>[ltemp] += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">window</span>[ltemp] == needs[ltemp])&#123;</span><br><span class="line">                match += <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        right++;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span>(match == <span class="built_in">Object</span>.keys(needs).length)&#123;</span><br><span class="line">            <span class="keyword">if</span>(right - left == p.length)&#123;</span><br><span class="line">                res.push(left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">let</span> leftStr = s[left];</span><br><span class="line">            <span class="keyword">if</span>(needs[leftStr])&#123;</span><br><span class="line">                <span class="built_in">window</span>[leftStr] -= <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(needs[leftStr] &gt; <span class="built_in">window</span>[leftStr])&#123;</span><br><span class="line">                    match -=<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            left ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-4-567-Permutation-in-String"><a href="#3-4-567-Permutation-in-String" class="headerlink" title="3.4 567. Permutation in String"></a>3.4 567. Permutation in String</h4><p>给定两个字符串s1和s2，如果s2包含s1的排列，则编写一个函数以返回true。换句话说，第一个字符串的排列之一是第二个字符串的子字符串.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input: s1 = <span class="string">"ab"</span> s2 = <span class="string">"eidbaooo"</span></span><br><span class="line">Output: True</span><br><span class="line">Explanation: s2 contains one permutation <span class="keyword">of</span> s1 (<span class="string">"ba"</span>).</span><br></pre></td></tr></table></figure>
+<p>思路与上一题相同。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> checkInclusion = <span class="function"><span class="keyword">function</span>(<span class="params">s1, s2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!s1 || !s2 || s1.length &gt; s2.length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> left = <span class="number">0</span>,</span><br><span class="line">        right = <span class="number">0</span>,</span><br><span class="line">        map = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">of</span> s1)&#123;</span><br><span class="line">        <span class="keyword">if</span>(map[i])&#123;</span><br><span class="line">            map[i] += <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            map[i] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> count = <span class="built_in">Object</span>.keys(map).length;</span><br><span class="line">    <span class="comment">//console.log(map);</span></span><br><span class="line">    <span class="keyword">while</span>(right&lt;s2.length)&#123;</span><br><span class="line">        <span class="keyword">let</span> temp = s2[right];</span><br><span class="line">        <span class="comment">//console.log(temp,map[temp]);</span></span><br><span class="line">        <span class="keyword">if</span>(map.hasOwnProperty(temp))&#123;</span><br><span class="line">            map[temp] -= <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(map[temp] == <span class="number">0</span>)&#123;</span><br><span class="line">                count --;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        right++;</span><br><span class="line">        <span class="comment">//console.log(map)</span></span><br><span class="line">        <span class="keyword">while</span>(count == <span class="number">0</span> )&#123;</span><br><span class="line">            <span class="keyword">let</span> temp1 = s2[left];</span><br><span class="line">            <span class="keyword">if</span>(map.hasOwnProperty(temp1))&#123;</span><br><span class="line">                map[temp1] += <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span>(map[temp1]&gt;<span class="number">0</span>) count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(right-left == s1.length) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/#">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/#">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/DengADeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://thelinblog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
