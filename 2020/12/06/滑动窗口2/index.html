@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="林嘉俊的博客">
+    <meta name="keyword"  content="林嘉俊">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        滑动窗口2 - Jiajun Lin的博客 | Jiajun Lin&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 等啊等，学啊学 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Jiajun Lin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#395-Longest-Substring-with-At-Least-K-Repeating-Characters"><span class="toc-text">395. Longest Substring with At Least K Repeating Characters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#239-Sliding-Window-Maximum"><span class="toc-text">239. Sliding Window Maximum</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 等啊等，学啊学 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        滑动窗口2
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-12-06 19:33:10</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <h3 id="395-Longest-Substring-with-At-Least-K-Repeating-Characters"><a href="#395-Longest-Substring-with-At-Least-K-Repeating-Characters" class="headerlink" title="395. Longest Substring with At Least K Repeating Characters"></a>395. Longest Substring with At Least K Repeating Characters</h3><p>给定字符串s和整数k，返回s的最长子字符串的长度，以使该子字符串中每个字符的频率大于或等于k。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Input: s = <span class="string">"aaabb"</span>, k = <span class="number">3</span></span><br><span class="line">Output: <span class="number">3</span></span><br><span class="line">Explanation: The longest substring is <span class="string">"aaa"</span>, <span class="keyword">as</span> <span class="string">'a'</span> is repeated <span class="number">3</span> times.</span><br><span class="line"></span><br><span class="line">Input: s = <span class="string">"ababbc"</span>, k = <span class="number">2</span></span><br><span class="line">Output: <span class="number">5</span></span><br><span class="line">Explanation: The longest substring is <span class="string">"ababb"</span>, <span class="keyword">as</span> <span class="string">'a'</span> is repeated <span class="number">2</span> times and <span class="string">'b'</span> is repeated <span class="number">3</span> times.</span><br></pre></td></tr></table></figure>
+<p>思路：<br>我们要找到最长子字符串，使得该子字符串中每个字符的频率大于或等于k。<br>假设我们有字符串  s=ababbc, k=2.<br>这题用滑动窗口来解决，我们要找到在不断增长窗口的情况下，什么条件下停止缩小窗口。<br>我们知道a-&gt;b-&gt;a-&gt;b-&gt;b是满足k=2的最优解。<br>我们可以先设定start，end=0;<br>在这过程中，我们一开始不知道有字符串中有几种字符串满足条件,假设最大的不同字符串的个数为MaxU，那么我们开始从a开始，设定窗口里只允许有一种字符串，从第一个字符a开始扩大窗口，直到遇到b时，我们缩小窗口，从窗口里找出满足a的频率满足k的结果，用窗口扫描字符串。然后我们可以假设两种字符的情况‘ab’，在窗口里有’ab’时，不断增大窗口，直到窗口遇到’c‘，找出’a‘和’b‘的频率满足k的结果。窗口从小到大增加字符串的类型，这样我们能得到所有的结果。</p>
+<p>代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> longestSubstring = <span class="function"><span class="keyword">function</span>(<span class="params">s, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> maxU = <span class="keyword">new</span> <span class="built_in">Set</span>(s).size;   <span class="comment">//字符串最多的不同</span></span><br><span class="line">    <span class="keyword">let</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//console.log(maxU);</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> curU = <span class="number">1</span>; curU&lt;=maxU; curU++)&#123;   <span class="comment">//按最多的次数遍历，即从设定窗口满足curU个字符种类</span></span><br><span class="line">        <span class="keyword">let</span> atLeastU = <span class="number">0</span>, u=<span class="number">0</span>, start=<span class="number">0</span>, end=<span class="number">0</span>, <span class="built_in">window</span>=&#123;&#125;;</span><br><span class="line">        <span class="comment">//console.log(1);</span></span><br><span class="line">        <span class="keyword">while</span>(end&lt;s.length)&#123;</span><br><span class="line">            <span class="keyword">let</span> temp = s[end];</span><br><span class="line">            <span class="built_in">window</span>[temp] = <span class="built_in">window</span>[temp]+<span class="number">1</span>||<span class="number">1</span>;   <span class="comment">//窗口记录当前值</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">window</span>[temp] == <span class="number">1</span>) u++;    <span class="comment">//u代表当前窗口里有u个种类字符串</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">window</span>[temp] == k) atLeastU++;  <span class="comment">//atLeastU增加，当窗口种字符满足k</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">//console.log(u,atLeastU,curU,window,res)</span></span><br><span class="line">            <span class="keyword">while</span>(u&gt;curU)&#123;         <span class="comment">//遇到不同字符，缩小窗口，缩小u</span></span><br><span class="line">                <span class="keyword">let</span> temp1 = s[start];</span><br><span class="line">                <span class="built_in">window</span>[temp1] = <span class="built_in">window</span>[temp1]<span class="number">-1</span>;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">window</span>[temp1] == k<span class="number">-1</span>) atLeastU--;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">window</span>[temp1] == <span class="number">0</span>) u--;</span><br><span class="line">                start++;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span>(u == curU &amp;&amp; u == atLeastU)&#123;  <span class="comment">//代表当前窗口满足窗口中所有字符的频率大于等于k</span></span><br><span class="line">                res = <span class="built_in">Math</span>.max(res, end-start+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            end++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="239-Sliding-Window-Maximum"><a href="#239-Sliding-Window-Maximum" class="headerlink" title="239. Sliding Window Maximum"></a>239. Sliding Window Maximum</h3><p>您将得到一个整数数组，其中有一个大小为k的滑动窗口，该窗口从数组的最左边移到最右边。您只能在窗口中看到k个数字。每次滑动窗口向右移动一个位置。返回最大的窗口值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">-1</span>,<span class="number">-3</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>], k = <span class="number">3</span></span><br><span class="line">Output: [<span class="number">3</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]</span><br><span class="line">Explanation: </span><br><span class="line">Window position                Max</span><br><span class="line">---------------               -----</span><br><span class="line">[<span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>] <span class="number">-3</span>  <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">3</span></span><br><span class="line"> <span class="number">1</span> [<span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span>] <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">3</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span> [<span class="number">-1</span>  <span class="number">-3</span>  <span class="number">5</span>] <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">5</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span> [<span class="number">-3</span>  <span class="number">5</span>  <span class="number">3</span>] <span class="number">6</span>  <span class="number">7</span>       <span class="number">5</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span> [<span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>] <span class="number">7</span>       <span class="number">6</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span>  <span class="number">5</span> [<span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>]      <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>思路： 这题可以用单调栈来做，用暴力解法的时间复杂度很高。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">针对<span class="number">1</span>,<span class="number">3</span>,<span class="number">-1</span>,<span class="number">-3</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>]，我们可以设立一个栈,栈里不断添加值，当当前值大于栈里最后的元素时，不断清空栈的第一个元素，直到清空栈。如果栈的长度等于k时，我们知道栈头的元素是最大的，拿出栈里第一个元素。具体过程如下：</span><br><span class="line"></span><br><span class="line">Window position                Max</span><br><span class="line">---------------               -----</span><br><span class="line">[<span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>] <span class="number">-3</span>  <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">3</span>     </span><br><span class="line"> <span class="number">1</span> [<span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span>] <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">3</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span> [<span class="number">-1</span>  <span class="number">-3</span>  <span class="number">5</span>] <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">5</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span> [<span class="number">-3</span>  <span class="number">5</span>  <span class="number">3</span>] <span class="number">6</span>  <span class="number">7</span>       <span class="number">5</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span> [<span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>] <span class="number">7</span>       <span class="number">6</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span>  <span class="number">5</span> [<span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>]      <span class="number">7</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> Window position                Max</span><br><span class="line"> ---------------               -----</span><br><span class="line"> [<span class="number">1</span>]                             --</span><br><span class="line"> [<span class="number">3</span>]                             --</span><br><span class="line"> [<span class="number">3</span>,<span class="number">-1</span>] 						<span class="number">3</span>   ==》此时，窗口的长度已经为<span class="number">3</span>，此时为第一次的窗口</span><br><span class="line"> [<span class="number">3</span>,<span class="number">-1</span>,<span class="number">-3</span>]					    <span class="number">3</span></span><br><span class="line"> [<span class="number">5</span>]							<span class="number">5</span></span><br><span class="line"> [<span class="number">5</span>,<span class="number">3</span>]							<span class="number">5</span></span><br><span class="line"> [<span class="number">6</span>]						    <span class="number">6</span></span><br><span class="line"> [<span class="number">7</span>]							<span class="number">7</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> maxSlidingWindow = <span class="function">(<span class="params">nums, k</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> res = [];</span><br><span class="line">  <span class="keyword">const</span> q = [];</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">    <span class="keyword">while</span> (q.length - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; nums[i] &gt; q[q.length - <span class="number">1</span>]) q.pop();</span><br><span class="line">    q.push(nums[i]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// When i + 1 - k &gt;= 0, the window is fully overlapping nums</span></span><br><span class="line">    <span class="keyword">const</span> j = i + <span class="number">1</span> - k;</span><br><span class="line">    <span class="keyword">if</span> (j &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">      res.push(q[<span class="number">0</span>]);</span><br><span class="line">      <span class="keyword">if</span> (nums[j] === q[<span class="number">0</span>]) q.shift(); <span class="comment">// If the biggest element in q is about to exit window, remove it from q</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/#">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/#">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/DengADeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://thelinblog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
