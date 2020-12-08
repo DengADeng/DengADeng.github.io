@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="林嘉俊的博客">
+    <meta name="keyword"  content="林嘉俊">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        leetcode 二分查找 - Jiajun Lin的博客 | Jiajun Lin&#39;s Blog
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 等啊等，学啊学 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>Jiajun Lin</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#480-Sliding-Window-Median"><span class="toc-text">480. Sliding Window Median</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#74-Search-a-2D-Matrix"><span class="toc-text">74. Search a 2D Matrix</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> 等啊等，学啊学 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        leetcode 二分查找
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-12-07 21:37:16</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content no-indent">
+        <p>一个简单的二分查找：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">binarySearch</span>(<span class="params">arr,target,l,r</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(l&lt;=r)&#123;</span><br><span class="line">		<span class="keyword">let</span> mid = <span class="built_in">Math</span>.floor((l+r)/<span class="number">2</span>);</span><br><span class="line">		<span class="keyword">if</span>(arr[mid] == target)&#123;</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid] &gt; target)&#123;</span><br><span class="line">		    r = mid<span class="number">-1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		    l = mid+<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="480-Sliding-Window-Median"><a href="#480-Sliding-Window-Median" class="headerlink" title="480. Sliding Window Median"></a>480. Sliding Window Median</h4><p>给定一个数组num，存在一个大小为k的滑动窗口，该窗口从数组的最左边移到最右边。您只能在窗口中看到k个数字。每次滑动窗口向右移动一个位置。您的工作是输出原始数组中每个窗口的中值数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Given nums = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">-1</span>,<span class="number">-3</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">6</span>,<span class="number">7</span>], and k = <span class="number">3.</span></span><br><span class="line"></span><br><span class="line">Window position                Median</span><br><span class="line">---------------               -----</span><br><span class="line">[<span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>] <span class="number">-3</span>  <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">1</span></span><br><span class="line"> <span class="number">1</span> [<span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span>] <span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">-1</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span> [<span class="number">-1</span>  <span class="number">-3</span>  <span class="number">5</span>] <span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>       <span class="number">-1</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span> [<span class="number">-3</span>  <span class="number">5</span>  <span class="number">3</span>] <span class="number">6</span>  <span class="number">7</span>       <span class="number">3</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span> [<span class="number">5</span>  <span class="number">3</span>  <span class="number">6</span>] <span class="number">7</span>       <span class="number">5</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">3</span>  <span class="number">-1</span>  <span class="number">-3</span>  <span class="number">5</span> [<span class="number">3</span>  <span class="number">6</span>  <span class="number">7</span>]      <span class="number">6</span></span><br></pre></td></tr></table></figure>
+<p>思路： 维持一个有序数组，例如第一次的窗口数组为[1,3,-1],我们可以把它先进行排序变成[-1,1,3]。</p>
+<p>接下来对于要进来的数字，我们要进行的操作是，删除在window里原有nums数组的第一个数值，在window里插入nums数组中接下来的数字，同时保证数组有序。<br>这个部分我们可以用二分查找来做，删除操作时可以在logN的时间内找到，添加数字时，由于数组中没有这个数字，但是l,r的位置会锁定添加数字的位置。</p>
+<p>时间复杂度为nlogN,暴力解法复杂度为N^2，因为每次都要进行排序;<br>代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> medianSlidingWindow = <span class="function"><span class="keyword">function</span>(<span class="params">nums, k</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> start = <span class="number">0</span>, end = k<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">let</span> res = [];</span><br><span class="line">    <span class="keyword">let</span> <span class="built_in">window</span> = nums.slice(start,end+<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">window</span>.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> a-b);</span><br><span class="line">    <span class="comment">//console.log(window);</span></span><br><span class="line">    <span class="keyword">while</span>(end&lt;nums.length)&#123;</span><br><span class="line">        <span class="keyword">let</span> len = <span class="built_in">window</span>.length;</span><br><span class="line">        <span class="keyword">let</span> median = k%<span class="number">2</span> === <span class="number">0</span>? (<span class="built_in">window</span>[<span class="built_in">Math</span>.floor(k / <span class="number">2</span>) - <span class="number">1</span>] + <span class="built_in">window</span>[<span class="built_in">Math</span>.floor(k / <span class="number">2</span>)]) / <span class="number">2</span></span><br><span class="line">        : <span class="built_in">window</span>[<span class="built_in">Math</span>.floor(k / <span class="number">2</span>)];</span><br><span class="line">        res.push(median);</span><br><span class="line">        <span class="comment">//console.log(res,'res');</span></span><br><span class="line">        <span class="comment">// remove first element of nums in window</span></span><br><span class="line">        <span class="keyword">let</span> remove = nums[start++];</span><br><span class="line">        <span class="keyword">let</span> removeIndex = binarySearch(<span class="number">0</span>,len<span class="number">-1</span>,<span class="built_in">window</span>,remove);</span><br><span class="line">        <span class="built_in">window</span>.splice(removeIndex,<span class="number">1</span>);</span><br><span class="line">        <span class="comment">//console.log(window);</span></span><br><span class="line">        <span class="comment">// add next element of nums</span></span><br><span class="line">        <span class="keyword">let</span> add = nums[++end];</span><br><span class="line">        <span class="keyword">let</span> addIndex = binarySearch(<span class="number">0</span>,len<span class="number">-1</span>,<span class="built_in">window</span>,add);</span><br><span class="line">        <span class="built_in">window</span>.splice(addIndex,<span class="number">0</span>,add);</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">binarySearch</span>(<span class="params">l,r,arr,target</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">            <span class="keyword">let</span> mid = <span class="built_in">Math</span>.floor((l+r)/<span class="number">2</span>);</span><br><span class="line">            <span class="keyword">if</span>(arr[mid] == target)&#123;</span><br><span class="line">                <span class="keyword">return</span> mid</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(arr[mid] &gt; target)&#123;</span><br><span class="line">                r = mid</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                l = mid + <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l === r) <span class="keyword">return</span> arr[l] &gt;= target? l: l+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="74-Search-a-2D-Matrix"><a href="#74-Search-a-2D-Matrix" class="headerlink" title="74. Search a 2D Matrix"></a>74. Search a 2D Matrix</h4><p>写一种有效的算法，以在m x n矩阵中搜索值。该矩阵具有以下属性： 每行中的整数从左到右排序。 每行的第一个整数大于前一行的最后一个整数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: matrix = [[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>],[<span class="number">10</span>,<span class="number">11</span>,<span class="number">16</span>,<span class="number">20</span>],[<span class="number">23</span>,<span class="number">30</span>,<span class="number">34</span>,<span class="number">50</span>]], target = <span class="number">3</span></span><br><span class="line">Output: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">Input: matrix = [[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>],[<span class="number">10</span>,<span class="number">11</span>,<span class="number">16</span>,<span class="number">20</span>],[<span class="number">23</span>,<span class="number">30</span>,<span class="number">34</span>,<span class="number">50</span>]], target = <span class="number">13</span></span><br><span class="line">Output: <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>二分搜索的典型题目，假设我们有m*n 的矩阵,有两种思路：</p>
+<ol>
+<li>一种是我们可以从矩阵最右上角的值进行判断,row=0,col=matrix[0].length-1，matirx[row][col]==target, 大于的话， col–, 小于的话 row++.</li>
+<li>第二个方法是把矩阵看成数组的形式，matrix ==&gt; arr ===&gt;matrix[mid/m]][mid%m], m为一行的长度，比如matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,50]]， 我们可以看成长度为12的数组，mid=Math.floor((l+r)/2) // ==&gt;5, 那么中间值的位置为matrix[5/4][5%4] ==&gt; matrix[1][1]</li>
+</ol>
+<p>代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> searchMatrix = <span class="function"><span class="keyword">function</span>(<span class="params">matrix, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!matrix.length || !matrix[<span class="number">0</span>].length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> row = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> col = matrix[<span class="number">0</span>].length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(col&gt;=<span class="number">0</span> &amp;&amp; row&lt;matrix.length)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(row,col);</span><br><span class="line">        <span class="keyword">if</span>(matrix[row][col] === target)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(matrix[row][col] &gt; target)&#123;</span><br><span class="line">            col--;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            row++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> searchMatrix = <span class="function"><span class="keyword">function</span>(<span class="params">matrix, target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!matrix.length || !matrix[<span class="number">0</span>].length) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">let</span> m = matrix[<span class="number">0</span>].length;</span><br><span class="line">    <span class="keyword">let</span> n = matrix.length;</span><br><span class="line">    <span class="keyword">let</span> l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> r = m*n<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">while</span>(l&lt;=r)&#123;</span><br><span class="line">        <span class="keyword">let</span> mid = <span class="built_in">Math</span>.floor((l+r)/<span class="number">2</span>);</span><br><span class="line">        <span class="comment">//console.log(matrix[Math.floor(mid/m)][mid%m],mid, l,r);</span></span><br><span class="line">        <span class="keyword">if</span>(matrix[<span class="built_in">Math</span>.floor(mid/m)][mid%m] == target)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(matrix[<span class="built_in">Math</span>.floor(mid/m)][mid%m] &gt; target)&#123;</span><br><span class="line">            r = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            l = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        <li>
+            <a target="_blank" href="https://twitter.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-twitter"></i>
+                            </span>
+            </a>
+        </li>
+        
+        
+        <li>
+            <a target="_blank" href="https://www.zhihu.com/people/#">
+                            <span class="fa-stack fa-lg">
+                                 <i class="iconfont icon-zhihu"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/#">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank" href="https://www.facebook.com/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-facebook"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://github.com/DengADeng">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+        <li>
+            <a target="_blank"  href="https://www.linkedin.com/in/#">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-linkedin"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://thelinblog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
